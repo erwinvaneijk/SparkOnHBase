@@ -2,11 +2,9 @@ package com.cloudera.spark.hbase;
 
 import java.io.File;
 import java.io.Serializable;
-
-import com.cloudera.spark.hbase.example.JavaHBaseBulkDeleteExample.DeleteFunction;
-import com.cloudera.spark.hbase.example.JavaHBaseBulkIncrementExample.IncrementFunction;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseTestingUtility;
@@ -16,15 +14,19 @@ import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.util.Bytes;
-import org.apache.spark.api.java.*;
+import org.apache.spark.api.java.JavaRDD;
+import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.api.java.function.Function;
-import com.cloudera.spark.hbase.JavaHBaseContext;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import com.cloudera.spark.hbase.example.JavaHBaseBulkDeleteExample.DeleteFunction;
+import com.cloudera.spark.hbase.example.JavaHBaseBulkIncrementExample.IncrementFunction;
+import com.google.common.io.Files;
 
 import scala.Tuple2;
 import scala.Tuple3;
-
-import com.google.common.io.Files;
 
 public class JavaHBaseContextSuite implements Serializable {
   private transient JavaSparkContext jsc;
@@ -103,7 +105,7 @@ public class JavaHBaseContextSuite implements Serializable {
 
     hbaseContext.bulkIncrement(rdd, tableName, new IncrementFunction(), 4);
     
-    throw new RuntimeException();
+    // throw new RuntimeException();
   }
   
   
