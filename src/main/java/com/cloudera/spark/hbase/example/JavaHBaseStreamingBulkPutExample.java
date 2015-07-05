@@ -8,10 +8,11 @@ import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.api.java.function.Function;
-import com.cloudera.spark.hbase.JavaHBaseContext;
 import org.apache.spark.streaming.Duration;
 import org.apache.spark.streaming.api.java.JavaReceiverInputDStream;
 import org.apache.spark.streaming.api.java.JavaStreamingContext;
+
+import com.cloudera.spark.hbase.JavaHBaseContext;
 
 public class JavaHBaseStreamingBulkPutExample {
   public static void main(String args[]) {
@@ -60,7 +61,7 @@ public class JavaHBaseStreamingBulkPutExample {
       String[] cells = v.split(",");
       Put put = new Put(Bytes.toBytes(cells[0]));
 
-      put.add(Bytes.toBytes(cells[1]), Bytes.toBytes(cells[2]),
+      put.addColumn(Bytes.toBytes(cells[1]), Bytes.toBytes(cells[2]),
           Bytes.toBytes(cells[3]));
       return put;
     }
